@@ -27,11 +27,12 @@ class ClassDiabetes(View):
           datadatos=[]
           for registro in registros:
             labeldatos.append(str(registro['year']))
-            datadatos.append(registro['decesos'])
+            datadatos.append(int(registro['decesos']))
           grafical = {
             "labels":labeldatos,
             "data":datadatos
           }
+          print (grafical)
           return JsonResponse(grafical)
 
 

@@ -13,22 +13,24 @@ import { GraficalService } from 'src/app/Auth/grafical.service';
 })
 export class GraficalComponent {
 
-labeldatos : string[] = [];
-data: number[] = [];
+labeldatos = []//: string[] = ['2000', '2001', '2002', '2003', '2004', '2005', '2006'];
+data = [] // = [12, 22, 25, 29, 25, 21, 20];
 
 constructor(private grafical:GraficalService){
-  Chart.register(Annotation);
+
 }
 
 ngOnInit(){
-
   let formulario={
-    tipo : "consulta"
+    tipo : "grafical"
   }
   this.grafical.grafical(formulario).subscribe((res)=>{
       if(res!=null){
           this.labeldatos = res.labels;
-          this.data;
+          this.data=res.data;
+          console.log(this.labeldatos)
+          console.log(this.data)
+          Chart.register(Annotation);
       }
   });
 }
@@ -38,7 +40,7 @@ ngOnInit(){
     datasets: [
       {
         data: this.data,
-        label: 'Traslados',
+        label: 'Decesos',
         backgroundColor: 'rgba(148,159,177,0.2)',
         borderColor: 'rgba(148,159,177,1)',
         pointBackgroundColor: 'rgba(148,159,177,1)',
@@ -48,7 +50,7 @@ ngOnInit(){
         fill: 'origin',
       }
     ],
-    labels: this.labeldatos
+    labels: this.labeldatos,
   };
 
   public lineChartOptions: ChartConfiguration['options'] = {
