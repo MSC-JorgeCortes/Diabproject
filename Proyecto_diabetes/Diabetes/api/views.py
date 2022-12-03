@@ -35,4 +35,21 @@ class ClassDiabetes(View):
           print (datos)
           return JsonResponse(datos)
 
+        # Actualizar los datos de la tabla diabetes.
+        if datos['tipo'] == 'actualizar':
+          buscar = list(Diabetes.objects.filter(year=datos['year']).values())
+          if len(buscar) > 0:
+            registro=Diabetes.objects.get(year=datos['year'])
+            registro.decesos=datos['decesos']
+            registro.save()
+
+        # Eliminar registros
+        if datos['tipo'] == 'eliminar':
+          buscar = list(Diabetes.objects.filter(year=datos['year']).values())
+          if len(buscar) > 0:
+            registro=Diabetes.objects.get(year=datos['year'])
+            registro.delete()
+
+        
+
 
