@@ -23,16 +23,16 @@ class ClassDiabetes(View):
         # Extaer datos para la gráfica
         if datos['tipo'] == 'grafical':
           registros = list(Diabetes.objects.values())
-          labeldatos=[]
-          datadatos=[]
+          datosDecesos=[]
           for registro in registros:
-            labeldatos.append(str(registro['year']))
-            datadatos.append(int(registro['decesos']))
-          grafical = {
-            "labels":labeldatos,
-            "data":datadatos
-          }
-          print (grafical)
-          return JsonResponse(grafical)
+            datosDecesos.append({'name':str(registro['year']),'value':registro['decesos']})
+
+          datos = { 'grafical':[{
+                            'name': "Decesos",
+                            'series': datosDecesos
+                    }]
+                  }
+          print (datos)
+          return JsonResponse(datos)
 
 

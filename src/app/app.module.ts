@@ -18,8 +18,10 @@ import { PaginaPrevencionComponent } from './components/pagina-prevencion/pagina
 import { PaginaGraficasComponent } from './components/pagina-graficas/pagina-graficas.component';
 import { FormsModule } from '@angular/forms';
 import { GraficalComponent } from './components/grafical/grafical.component';
-import { NgChartsModule } from 'ng2-charts';
+
 import { HttpClientModule } from '@angular/common/http';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -43,8 +45,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxChartsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
