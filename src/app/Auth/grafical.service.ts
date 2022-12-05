@@ -7,11 +7,27 @@ import { Observable } from 'rxjs';
 })
 export class GraficalService {
 
-  constructor(private graftHTTP : HttpClient){
+  constructor(private http : HttpClient){}
+  
+
+  obtenDatos(form:any):Observable <any> {
+    return this.http.post("http://localhost:8000/tempanual/temperatura/",form);
   }
 
-
-  public grafical(req:any):Observable<any> {
-    return this.graftHTTP.post('http://localhost:8000/api/diabetes/',req);
+  Agregar(form:any):Observable<any>{
+    return this.http.post("http://localhost:8000/tempanual/temperatura/",form);
   }
+
+  listarDatos(form:any):Observable<any>{
+    return this.http.post('http://localhost:8000/tempanual/temperatura/',form);
+  }
+
+  updateDatos(form:any):Observable<any>{
+    return this.http.post('http://localhost:8000/tempanual/temperatura/',form);
+  }
+
+  eliminarRegistro(form:any):Observable<any>{
+    return this.http.post('http://localhost:8000/tempanual/temperatura/',form);
+  }
+
 }

@@ -7,41 +7,56 @@ from .models import Diabetes
 
 # Create your views here.
 
-class ClassDiabetes(View):
+class usuariosView(View):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, args, *kwargs):
+        return super().dispatch(request, *args, **kwargs)
+      
+    def get(self, request):
+        pass
+    def get(self, request):
+        pass
+    def get(self, request):
+        pass
+    def get(self, request):
+        pass
+        
+
+class Diabetes(View):
     @method_decorator(csrf_exempt)
     def dispatch(self,request, *args, **kwargs):
         return super().dispatch(request,*args, **kwargs)
 
     def post(self,req):
         datos = json.loads(req.body)
-        # añadiendo datos en la tabla diabetes
-        if (datos['tipo'] == 'add'):
-            year = datos['year']
-            decesos = datos['decesos']
-            Diabetes.objects.create(year=datos['year'],decesos=datos['decesos'])
-            return JsonResponse({"mensaje":"Registro añadido"})
-        # Extaer datos para la gráfica
-        if datos['tipo'] == 'grafical':
-          registros = list(Diabetes.objects.values())
-          datosDecesos=[]
-          for registro in registros:
-            datosDecesos.append({'name':str(registro['year']),'value':registro['decesos']})
+        
+       
+        if datos['tipo'] == "ObtenDatos":
+            year = list(Diabetes.objects.values())
+            decesos = []
+            for des in year:
+                decesos.append({'name':(des['year']), 'value': des['decesos']})
+            datos = {'ObtenDatos': [{
+                'name':'TotalDecesos',
+                'series': decesos
+            }]
+            }
+       
+        if datos['tipo'] == 'Registro':
+          jd= json.loads(req.body)
+          decesos.objects.create(decesos=jd['decesos'],year=jd['year'])
+          return JsonResponse({'mensaje':'Registrado'})
 
-          datos = { 'grafical':[{
-                            'name': "Decesos",
-                            'series': datosDecesos
-                    }]
-                  }
-          print (datos)
-          return JsonResponse(datos)
-
-        # Actualizar los datos de la tabla diabetes.
         if datos['tipo'] == 'actualizar':
+          jd= json.loads(req.body)
           buscar = list(Diabetes.objects.filter(year=datos['year']).values())
           if len(buscar) > 0:
             registro=Diabetes.objects.get(year=datos['year'])
-            registro.decesos=datos['decesos']
+            registro.decesos=jd['decesos']
+            registro.year = jd['year']
             registro.save()
+            dato={'mensaje':'editado'}
+          return JsonResponse(dato)
 
         # Eliminar registros
         if datos['tipo'] == 'eliminar':
@@ -49,6 +64,8 @@ class ClassDiabetes(View):
           if len(buscar) > 0:
             registro=Diabetes.objects.get(year=datos['year'])
             registro.delete()
+            dato={'mensaje':'eliminado'}
+          return JsonResponse(dato)
 
         
 

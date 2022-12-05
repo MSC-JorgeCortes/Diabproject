@@ -1,4 +1,73 @@
-<div class="container">
+<div class="container pt-2">
+  <div class="card">
+    <div class="card-header bg-info">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h3 class="fw-lighter">Grafica -Taza de Mortalidad</h3>
+        </div>
+      </div>
+      <!-- Titulo-->
+    </div>
+    <div class="card-body">
+      <div class="row pt-2">
+        <div class="col-sm-3">
+          <div class="row">
+            <!-- Datos del formulario -->
+            <div class="form-floating mb-3">
+              <input [(ngModel)]="registro.year" type="text" class="form-control" id="floatingInput"
+                placeholder="name@example.com">
+              <label for="floatingInput">Año</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input [(ngModel)]="registro.decesos" type="email" class="form-control" id="floatingInput"
+                placeholder="name@example.com">
+              <label for="floatingInput">Decesos</label>
+            </div>
+            <div *ngIf="AddActivo">
+              <button type="button" class="btn btn-outline-primary px-2" (click)="Agregar()">Agregar Datos</button>
+            </div>
+            <div class="d-flex d-inline ps-4">
+              <div *ngIf="UpdateActivo" class="px-4">
+                <button type="button" class="btn btn-outline-info px-2" (click)="updateRegistro(true)">Actualizar
+                  Datos</button>
+              </div>
+              <div *ngIf="UpdateActivo">
+                <button type="button" class="btn btn-outline-info px-2"
+                  (click)="updateRegistro(false)">Cancelar</button>
+              </div>
+            </div>
+          </div>
+          <!-- termina -->
+          <!-- inicia tabla -->
+          <div class="row">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Año</th>
+                    <th scope="col">Decesos</th>
+                    <th scope="col">Accion</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <tr *ngFor="let reg of registros">
+                    <td>{{reg.anual}}</td>
+                    <td>{{reg.temperatura}}</td>
+                    <td>
+                      <a class="btn" (click)="editarRegistro(reg.anual,reg.temperatura)"><i class="fa fa-address-card"
+                          aria-hidden="true"></i></a> | <a class="btn"
+                        (click)="eliminarRegistro(reg.anual)">Eliminar</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+          <!-- Termina table -->
+        </div>
+        <div class="col-sm-5">
+          <div class="px-2">
   <ngx-charts-area-chart
   [view]="view"
   [legend]="legend"
@@ -12,4 +81,66 @@
   [results]="multi"
   (select)="onSelect($event)">
 </ngx-charts-area-chart>
+
 </div>
+</div>
+</div>
+</div>
+
+<div class="card-footer text-muted">
+ Numero de Decesos por año
+</div>
+</div>
+</div>
+
+
+<div class="container pt-5">
+  <div class="card">
+    <div class="card-header bg-info">
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <h3 class="fw-lighter">Área bajo la Curva</h3>
+        </div>
+      </div>
+    </div>
+<div class="card-body">
+    La Diabetes es un problema a nivel mundial, debemos hacer conciencia de las grandes
+    consecuencias que puede traer a tu vida, una de ellas, la muerte.
+
+    Esa cinsecuencia es el principal motivo de nuestra pagina, disminuir los casos de decesos que hay en nuestra localidad,
+    es necesrio conocer a qué nos enfrentamos. Una demostración cuántas personas no fallecen a causa de la Dibetes.
+    <p>
+    Por medio de la siguiente Función Integral
+    podemos calcular el área Total bajo la curva, es decir la suma de todos
+    los decesos que han habido en los últimos 12 años gracias a la Diabetes.
+    <div class="mx-auto" style="width: 200px;">
+    <p class="fw-bold">F(x)=20x^2+170x+6450</p>
+    </div>
+
+  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" >
+    Calcular el Área bajo la curva
+  </button>
+<div class="espacio">
+  <div class="collapse" id="collapseExample">
+  <div class="card card-body">
+
+   El area total bajo la curva es de 94,610 decesos que han ocurrido en los últimos 12 años solo en nuestra localidad.
+</div>
+</div>
+  </div></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="card-footer text-muted">
+  <a routerLink="pagina-principal">
+    <i class="fa fa-backward" aria-hidden="true"></i>
+  </a>
+</div>
+
